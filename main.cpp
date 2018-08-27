@@ -7,6 +7,7 @@
 #include "pointerList/pointerList.h"
 #include "arrayList/arrayList.h"
 #include "stackHeap/stackHeap.h"
+#include "hash/hash.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -48,6 +49,10 @@ int main() {
     funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
     funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
     */
+
+    // Hash table
+    funcNamePairs.push_back(make_pair(bind(benchHashTableList, 100), "List hash table"));
+    funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 100), "Linear hash table"));
 
     measureFuncs(funcNamePairs);
 
