@@ -7,7 +7,7 @@
 #include "hash/hash.h"
 #include "stack/stack.h"
 #include "arrayList/arrayList.h"
-#include "stackHeap/stackHeap.h"
+#include "allocation/allocation.h"
 #include "pointerList/pointerList.h"
 
 using namespace std;
@@ -26,39 +26,32 @@ void measureFuncs(vecFuncStrT& vecFuncName) {
     }
 }
 
-void test() {
-    int topThresh = 300;
-    for (int i1 = 0; i1 < topThresh; ++i1)
-        for (int i2 = 0; i2 < topThresh; ++i2)
-            for (int i3 = 0; i3 < topThresh; ++i3);
-}
-
 int main() {
     vecFuncStrT funcNamePairs;
 
     // Stack-heap array
     /*
-    long long opsNum = 100000000;
+    long long opsNum = 1000000000;
     funcNamePairs.push_back(make_pair(bind(benchAllocStackArray, 1000000, opsNum), "Array allocated on stack"));
     funcNamePairs.push_back(make_pair(bind(benchAllocHeapArray, 1000000, opsNum), "Array allocated on heap"));
     // */
 
     // Lists
     /*
-    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 50000), "Pointer-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 50000), "Array-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
+    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 70000), "Pointer-based linked list find method"));
+    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 70000), "Array-based linked list find method"));
+    //funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
+    //funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
     // */
 
     // Stack
-    //*
-    funcNamePairs.push_back(make_pair(bind(benchStackList, 1000), "Array-based stack"));
-    funcNamePairs.push_back(make_pair(bind(benchStackArray, 1000), "List-based stack"));
+    /*
+    funcNamePairs.push_back(make_pair(bind(benchStackArray, 5000), "Array-based stack"));
+    funcNamePairs.push_back(make_pair(bind(benchStackList, 5000), "List-based stack"));
     // */
 
     // Hash table
-    /*
+    //*
     funcNamePairs.push_back(make_pair(bind(benchHashTableList, 250), "List hash table"));
     funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 250), "Linear hash table"));
     // */

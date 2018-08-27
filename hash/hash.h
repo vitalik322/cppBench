@@ -5,7 +5,7 @@
 #define MAX_STR_LEN 10
 #define MIN_STR_LEN 3
 
-unsigned int polinomHash(std::string &s);
+unsigned int polynomHash(std::string &s);
 
 // Linear hash table
 

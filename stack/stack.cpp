@@ -1,7 +1,5 @@
 #include "stack.h"
 
-#define STACK_SIZE 1000000
-
 //
 // List-based stack
 //

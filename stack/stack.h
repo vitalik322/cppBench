@@ -1,4 +1,4 @@
-#define STACK_SIZE 1000000
+#define STACK_SIZE 100000000
 
 //
 // Array-based stack
@@ -6,7 +6,7 @@
 
 struct StackArray {
     int *arr_ = new int[STACK_SIZE];
-    int topIndex_ = 0;
+    long long topIndex_ = 0;
 
     int pop() { return arr_[topIndex_--]; }
     void push(int elem) { arr_[++topIndex_] = elem; }

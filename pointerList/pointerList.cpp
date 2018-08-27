@@ -2,10 +2,9 @@
 #include "pointerList.h"
 
 PointerNode *PointerLinkedList::find(int valueToFind) {
-    PointerNode *curNode = root_;
+    register PointerNode *curNode = root_;
     while (curNode->value != valueToFind && curNode->next != nullptr)
         curNode = curNode->next;
-
     return curNode;
 }   
 
