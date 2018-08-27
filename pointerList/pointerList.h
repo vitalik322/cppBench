@@ -7,6 +7,7 @@
 
 struct PointerNode {
     int value = 0;
+    PointerNode *prev;
     PointerNode *next;
 };
 
@@ -14,11 +15,12 @@ struct PointerLinkedList {
     PointerNode *root_ = new PointerNode();
     int size_ = 1;
 
-    PointerNode *findPrev(int valueToFind);
+    PointerNode *find(int valueToFind);
     void insertAfter(PointerNode *prevNode, int newValue);
-    void deleteAfter(PointerNode *prevNode);
+    void remove(PointerNode *node);
 };
 
 void benchPointerList(int elementsNum);
+void benchPointerListFind(int elementsNum);
 
 #endif  // POINTER_LIST_H

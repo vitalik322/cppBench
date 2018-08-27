@@ -1,24 +1,31 @@
 //
-// Pointer-based linked list
+// Array-based linked list
 //
 
-#ifndef POINTER_LIST_H
-#define POINTER_LIST_H
+#ifndef ARRAY_LIST_H
+#define ARRAY_LIST_H
 
-struct PointerNode {
+struct ArrayNode {
     int value = 0;
-    PointerNode *next;
+    int prev = -1;
+    int next = -1;
 };
 
-struct PointerLinkedList {
-    PointerNode *root_ = new PointerNode();
+struct ArrayLinkedList {
+
+    ArrayLinkedList();
+
+    ArrayNode *nodes_;
+    int root_ = 0;
+    int freeRoot_ = 0;
     int size_ = 1;
 
-    PointerNode *findPrev(int valueToFind);
-    void insertAfter(PointerNode *prevNode, int newValue);
-    void deleteAfter(PointerNode *prevNode);
+    int find(int valueToFind);
+    void insertAfter(int prevNode, int newValue);
+    void remove(int node);
 };
 
-void benchPointerList(int elementsNum);
+void benchArrayList(int elementsNum);
+void benchArrayListFind(int elementsNum);
 
-#endif  // POINTER_LIST_H
+#endif  // ARRAY_LIST_H

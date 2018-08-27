@@ -1,1 +1,4 @@
 measurer
+*.swp
+analysis.txt
+*.out
