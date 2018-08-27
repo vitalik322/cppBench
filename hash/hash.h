@@ -1,7 +1,7 @@
 #include <string>
 
 #define HASH_BASE 31
-#define HASH_TABLE_SIZE 40000
+#define HASH_TABLE_SIZE 60000
 #define MAX_STR_LEN 10
 #define MIN_STR_LEN 3
 
@@ -28,14 +28,14 @@ struct HashTableLinear {
 
 // List hash table
 
-struct Node {
-    Node(std::string v) { value = std::string(v); }
+struct HashNode {
+    HashNode(std::string v) { value = std::string(v); }
     std::string value;
-    Node *next = nullptr;
+    HashNode *next = nullptr;
 };
 
 struct List {
-    Node *root_ = nullptr;
+    HashNode *root_ = nullptr;
     void push(std::string &value);
     void remove(std::string &strToRemove);
     bool find(std::string &strToFind);

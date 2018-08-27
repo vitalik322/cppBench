@@ -1,4 +1,4 @@
-void benchStackArray(int arrSize, long long numOps) {
+void benchAllocStackArray(int arrSize, long long numOps) {
     int arr[arrSize];
     int tmp;
     for (register long long i = 0; i < numOps; ++i) {
@@ -10,7 +10,7 @@ void benchStackArray(int arrSize, long long numOps) {
     }
 }
 
-void benchHeapArray(int arrSize, long long numOps) {
+void benchAllocHeapArray(int arrSize, long long numOps) {
     int *arr = new int[arrSize];
     int tmp;
     for (register long long i = 0; i < numOps; ++i) {

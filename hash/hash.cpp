@@ -63,14 +63,14 @@ void HashTableLinear::remove(std::string &strToRemove) {
 //
 
 void List::push(std::string& value) {
-    Node *newNode = new Node(value);
+    HashNode *newNode = new HashNode(value);
 
     if (root_ == nullptr) {
         root_ = newNode;
         return;
     }
 
-    Node *currNode = root_;
+    HashNode *currNode = root_;
     for (;currNode->next != nullptr; currNode = currNode->next);
 
     currNode->next = newNode;
@@ -78,7 +78,7 @@ void List::push(std::string& value) {
 
 // Supposing string exists in list
 void List::remove(std::string &strToRemove) {
-    Node *prevNode = root_;
+    HashNode *prevNode = root_;
     if (root_->value == strToRemove) {
         root_ = root_->next;
         delete prevNode;
@@ -87,13 +87,13 @@ void List::remove(std::string &strToRemove) {
 
     for (;prevNode->next->value != strToRemove; prevNode = prevNode->next);
 
-    Node *nodeToRemove = prevNode->next;
+    HashNode *nodeToRemove = prevNode->next;
     prevNode->next = nodeToRemove->next;
     delete nodeToRemove;
 }
 
 bool List::find(std::string &strToFind) {
-    for(Node *currNode = root_; currNode != nullptr; currNode = currNode->next) {
+    for(HashNode *currNode = root_; currNode != nullptr; currNode = currNode->next) {
         if (currNode->value == strToFind)
             return true;
     }

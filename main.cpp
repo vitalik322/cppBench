@@ -4,10 +4,11 @@
 #include <iostream>
 #include <functional>
 
-#include "pointerList/pointerList.h"
+#include "hash/hash.h"
+#include "stack/stack.h"
 #include "arrayList/arrayList.h"
 #include "stackHeap/stackHeap.h"
-#include "hash/hash.h"
+#include "pointerList/pointerList.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -38,9 +39,9 @@ int main() {
     // Stack-heap array
     /*
     long long opsNum = 100000000;
-    funcNamePairs.push_back(make_pair(bind(benchStackArray, 1000000, opsNum), "Stack array"));
-    funcNamePairs.push_back(make_pair(bind(benchHeapArray, 1000000, opsNum), "Heap array"));
-    */
+    funcNamePairs.push_back(make_pair(bind(benchAllocStackArray, 1000000, opsNum), "Array allocated on stack"));
+    funcNamePairs.push_back(make_pair(bind(benchAllocHeapArray, 1000000, opsNum), "Array allocated on heap"));
+    // */
 
     // Lists
     /*
@@ -48,11 +49,19 @@ int main() {
     funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 50000), "Array-based linked list find method"));
     funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
     funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
-    */
+    // */
+
+    // Stack
+    //*
+    funcNamePairs.push_back(make_pair(bind(benchStackList, 1000), "Array-based stack"));
+    funcNamePairs.push_back(make_pair(bind(benchStackArray, 1000), "List-based stack"));
+    // */
 
     // Hash table
-    funcNamePairs.push_back(make_pair(bind(benchHashTableList, 100), "List hash table"));
-    funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 100), "Linear hash table"));
+    /*
+    funcNamePairs.push_back(make_pair(bind(benchHashTableList, 250), "List hash table"));
+    funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 250), "Linear hash table"));
+    // */
 
     measureFuncs(funcNamePairs);
 

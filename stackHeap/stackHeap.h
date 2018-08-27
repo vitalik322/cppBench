@@ -1,2 +1,2 @@
-void benchStackArray(int arrSize, long long numOps); 
-void benchHeapArray(int arrSize, long long numOps);
+void benchAllocStackArray(int arrSize, long long numOps); 
+void benchAllocHeapArray(int arrSize, long long numOps);
