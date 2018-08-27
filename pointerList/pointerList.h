@@ -7,8 +7,8 @@
 
 struct PointerNode {
     int value = 0;
-    PointerNode *prev;
-    PointerNode *next;
+    PointerNode *prev = nullptr;
+    PointerNode *next = nullptr;
 };
 
 struct PointerLinkedList {

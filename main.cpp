@@ -35,16 +35,18 @@ int main() {
     vecFuncStrT funcNamePairs;
 
     // Stack-heap array
+    /*
     long long opsNum = 100000000;
     funcNamePairs.push_back(make_pair(bind(benchStackArray, 1000000, opsNum), "Stack array"));
     funcNamePairs.push_back(make_pair(bind(benchHeapArray, 1000000, opsNum), "Heap array"));
+    */
 
     // Lists
     /*
-    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 20000), "Pointer-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 20000), "Array-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchPointerList, 10000000), "Pointer-based linked list"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayList, 10000000), "Array-based linked list"));
+    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 50000), "Pointer-based linked list find method"));
+    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 50000), "Array-based linked list find method"));
+    funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
+    funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
     */
 
     measureFuncs(funcNamePairs);

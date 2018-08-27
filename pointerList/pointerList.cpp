@@ -50,17 +50,19 @@ void benchPointerListFind(int elementsNum) {
 void benchPointerList(int elementsNum) {
     PointerLinkedList list;
 
-    PointerNode *node = list.find(0);
-    for (register int i = 0; i < elementsNum; ++i) {
-        list.insertAfter(node, i + 1);
-        node = node->next;
-    }
+    for (register int j = 0; j < elementsNum; ++j) {
+        PointerNode *node = list.find(0);
+        for (register int i = 0; i < elementsNum; ++i) {
+            list.insertAfter(node, i + 1);
+            node = node->next;
+        }
 
-    node = list.find(0);
-    PointerNode *nextNode = node->next;
-    for (register int i = 0; i < elementsNum; ++i) {
-        nextNode = node->next;
-        list.remove(node);
-        node = nextNode;
+        node = list.find(0);
+        PointerNode *nextNode = node->next;
+        for (register int i = 0; i < elementsNum; ++i) {
+            nextNode = node->next;
+            list.remove(node);
+            node = nextNode;
+        }
     }
 }

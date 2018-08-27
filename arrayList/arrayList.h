@@ -14,11 +14,11 @@ struct ArrayNode {
 struct ArrayLinkedList {
 
     ArrayLinkedList();
+    ~ArrayLinkedList();
 
     ArrayNode *nodes_;
     int root_ = 0;
     int freeRoot_ = 0;
-    int size_ = 1;
 
     int find(int valueToFind);
     void insertAfter(int prevNode, int newValue);
