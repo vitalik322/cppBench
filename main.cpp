@@ -86,10 +86,10 @@ int main() {
     // Lists
     //*
     testLists();
-    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 80000), "Pointer-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 80000), "Array-based linked list find method"));
-    //funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
-    //funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
+    //funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 80000), "Pointer-based linked list find method"));
+    //funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 80000), "Array-based linked list find method"));
+    funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
+    funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
     // */
 
     // Stack

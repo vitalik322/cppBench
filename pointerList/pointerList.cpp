@@ -52,12 +52,7 @@ void benchPointerList(int elementsNum) {
             node = node->next;
         }
 
-        node = list.root_;
-        register PointerNode *nextNode = node->next;
-        for (register int i = 0; i < elementsNum; ++i) {
-            nextNode = node->next;
-            list.remove(node);
-            node = nextNode;
-        }
+        for (register int i = 0; i < elementsNum; ++i)
+            list.remove(list.root_->next);
     }
 }
