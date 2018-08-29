@@ -24,7 +24,7 @@ ArrayLinkedList::ArrayLinkedList() {
 
 
 ArrayLinkedList::~ArrayLinkedList() {
-    delete nodes_;
+    delete[] nodes_;
 }
 
 ArrayNode* ArrayLinkedList::find(int valueToFind) {
@@ -66,34 +66,3 @@ void ArrayLinkedList::remove(ArrayNode *nodeToRemove) {
     freeRoot_->next = nodeToRemove;
     nodeToRemove->next->prev = nodeToRemove;
 }
-
-void benchArrayListFind(int elementsNum) {
-    ArrayLinkedList list;
-    register ArrayNode *node;
-
-    for (register int i = 0; i < elementsNum; ++i) {
-        node = list.find(i);
-        list.insertAfter(node, i + 1);
-    }
-
-    for (register int i = elementsNum - 1; i > 0; --i) {
-        node = list.find(i);
-        list.remove(node);
-    }
-}
-
-void benchArrayList(int elementsNum) {
-    ArrayLinkedList list;
-
-    for (register int j = 0; j < elementsNum; ++j) {
-        register ArrayNode *node = list.root_;
-        for (register int i = 0; i < elementsNum; ++i) {
-            list.insertAfter(node, i + 1);
-            node = node->next;
-        }
-
-        for (register int i = 0; i < elementsNum; ++i)
-            list.remove(list.root_->next);
-    }
-}
-

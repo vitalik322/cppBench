@@ -25,7 +25,4 @@ struct ArrayLinkedList {
     void remove(ArrayNode* node);
 };
 
-void benchArrayList(int elementsNum);
-void benchArrayListFind(int elementsNum);
-
 #endif  // ARRAY_LIST_H

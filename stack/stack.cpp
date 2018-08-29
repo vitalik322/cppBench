@@ -5,15 +5,15 @@
 //
 
 int StackList::pop() {
-    StackNode *topNode = sp_;
+    register StackNode *topNode = sp_;
     sp_ = sp_->prev;
-    int res = topNode->value;
+    register int res = topNode->value;
     delete topNode;
     return res;
 }
 
 void StackList::push(int value) {
-    StackNode *newNode = new StackNode(value);
+    register StackNode *newNode = new StackNode(value);
     newNode->prev = sp_;
     sp_ = newNode;
 }

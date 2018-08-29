@@ -1,11 +1,11 @@
 #include <string>
 
 #define HASH_BASE 31
-#define HASH_TABLE_SIZE 60000
-#define MAX_STR_LEN 10
 #define MIN_STR_LEN 3
+#define MAX_STR_LEN 10
+#define HASH_TABLE_SIZE 60000
 
-unsigned int polynomHash(std::string &s);
+unsigned int polynomHash(const std::string &s);
 
 // Linear hash table
 
@@ -21,9 +21,9 @@ struct HashTableLinear {
     int removes = 0;
 
     HashTableLinear();
-    void insert(std::string &s);
-    bool find(std::string &s);
-    void remove(std::string &s);
+    void insert(const std::string &s);
+    bool find(const std::string &s);
+    void remove(const std::string &s);
 };
 
 // List hash table
@@ -36,9 +36,9 @@ struct HashNode {
 
 struct List {
     HashNode *root_ = nullptr;
-    void push(std::string &value);
-    void remove(std::string &strToRemove);
-    bool find(std::string &strToFind);
+    void push(const std::string &value);
+    void remove(const std::string &strToRemove);
+    bool find(const std::string &strToFind);
 };
 
 struct HashTableList {
@@ -48,9 +48,9 @@ struct HashTableList {
     int removes = 0;
 
     HashTableList();
-    void insert(std::string &s);
-    bool find(std::string &s);
-    void remove(std::string &s);
+    void insert(const std::string &s);
+    bool find(const std::string &s);
+    void remove(const std::string &s);
 };
 
 void benchHashTableList (int numOps);

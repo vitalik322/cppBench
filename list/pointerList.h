@@ -17,9 +17,7 @@ struct PointerLinkedList {
     PointerNode *find(int valueToFind);
     void insertAfter(PointerNode *prevNode, int newValue);
     void remove(PointerNode *node);
+    ~PointerLinkedList();
 };
-
-void benchPointerList(int elementsNum);
-void benchPointerListFind(int elementsNum);
 
 #endif  // POINTER_LIST_H

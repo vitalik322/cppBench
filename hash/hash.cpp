@@ -4,7 +4,7 @@
 // Linear hash table
 //
 
-unsigned int polynomHash(std::string &s) {
+unsigned int polynomHash(const std::string &s) {
     register unsigned int hash = 0;
     for (auto c : s) {
         hash = hash * HASH_BASE + c;
@@ -18,7 +18,7 @@ HashTableLinear::HashTableLinear() {
 }
 
 // Supposing string doesn't exist in list
-void HashTableLinear::insert(std::string &strToInsert) {
+void HashTableLinear::insert(const std::string &strToInsert) {
     inserts++;
     register int originalHash = polynomHash(strToInsert);
     register int hash = originalHash;
@@ -27,7 +27,7 @@ void HashTableLinear::insert(std::string &strToInsert) {
     table_[hash].str = strToInsert;
 } 
 
-bool HashTableLinear::find(std::string &strToFind) {
+bool HashTableLinear::find(const std::string &strToFind) {
     register int hash = polynomHash(strToFind);
     while (!table_[hash].str.empty() || table_[hash].isDeleted) {
         if (table_[hash].str == strToFind)
@@ -39,7 +39,7 @@ bool HashTableLinear::find(std::string &strToFind) {
 
 // Supposing string exists in list
 // Removing: find last entry with same hash and replace deleted one
-void HashTableLinear::remove(std::string &strToRemove) {
+void HashTableLinear::remove(const std::string &strToRemove) {
     removes++;
     register int originalHash = polynomHash(strToRemove);
     register int hash = originalHash;
@@ -62,7 +62,7 @@ void HashTableLinear::remove(std::string &strToRemove) {
 // List hash table
 //
 
-void List::push(std::string& value) {
+void List::push(const std::string& value) {
     register HashNode *newNode = new HashNode(value);
 
     if (root_ == nullptr) {
@@ -77,7 +77,7 @@ void List::push(std::string& value) {
 }
 
 // Supposing string exists in list
-void List::remove(std::string &strToRemove) {
+void List::remove(const std::string &strToRemove) {
     register HashNode *prevNode = root_;
     if (root_->value == strToRemove) {
         root_ = root_->next;
@@ -92,7 +92,7 @@ void List::remove(std::string &strToRemove) {
     delete nodeToRemove;
 }
 
-bool List::find(std::string &strToFind) {
+bool List::find(const std::string &strToFind) {
     for(register HashNode *currNode = root_; currNode != nullptr; currNode = currNode->next) {
         if (currNode->value == strToFind)
             return true;
@@ -106,7 +106,7 @@ HashTableList::HashTableList() {
 }
 
 // Supposing string do not exists in table
-void HashTableList::insert(std::string &strToInsert) {
+void HashTableList::insert(const std::string &strToInsert) {
     ++inserts;
     register int hash = polynomHash(strToInsert);
     if (table_[hash].root_ != nullptr) ++collisions;  // tmp
@@ -114,13 +114,13 @@ void HashTableList::insert(std::string &strToInsert) {
 }
 
 // Supposing string do exists in table
-void HashTableList::remove(std::string &strToRemove) {
+void HashTableList::remove(const std::string &strToRemove) {
     ++removes;
     register int hash = polynomHash(strToRemove);
     table_[hash].remove(strToRemove);
 }
 
-bool HashTableList::find(std::string &strToFind) {
+bool HashTableList::find(const std::string &strToFind) {
     register int hash = polynomHash(strToFind);
     return table_[hash].find(strToFind);
 }

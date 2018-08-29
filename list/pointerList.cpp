@@ -1,4 +1,3 @@
-#include <stdlib.h>  // rand
 #include "pointerList.h"
 
 PointerNode *PointerLinkedList::find(int valueToFind) {
@@ -27,32 +26,11 @@ void PointerLinkedList::remove(PointerNode *nodeToRemove) {
     delete nodeToRemove;
 }
 
-void benchPointerListFind(int elementsNum) {
-    PointerLinkedList list;
-    register PointerNode *node;
-
-    for (register int i = 0; i < elementsNum; ++i) {
-        node = list.find(i);
-        list.insertAfter(node, i + 1);
-    }
-
-    for (register int i = elementsNum - 1; i > 0; --i) {
-        node = list.find(i);
-        list.remove(node);
-    }
-}
-
-void benchPointerList(int elementsNum) {
-    PointerLinkedList list;
-
-    for (register int j = 0; j < elementsNum; ++j) {
-        register PointerNode *node = list.root_;
-        for (register int i = 0; i < elementsNum; ++i) {
-            list.insertAfter(node, i + 1);
-            node = node->next;
-        }
-
-        for (register int i = 0; i < elementsNum; ++i)
-            list.remove(list.root_->next);
+PointerLinkedList::~PointerLinkedList() {
+    PointerNode *node = root_;
+    while (root_ != nullptr) {
+        node = root_->next;
+        delete root_;
+        root_ = node;
     }
 }

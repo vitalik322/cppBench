@@ -10,7 +10,7 @@ struct StackArray {
 
     int pop() { return arr_[topIndex_--]; }
     void push(int elem) { arr_[++topIndex_] = elem; }
-    ~StackArray() { delete arr_; }
+    ~StackArray() { delete[] arr_; }
 };
 
 //
