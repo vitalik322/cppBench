@@ -11,8 +11,8 @@ ArrayLinkedList::ArrayLinkedList() {
         nodes_[i].prev = &nodes_[i - 1];
         nodes_[i].next = &nodes_[i + 1];
     }
-    nodes_[0].prev = &nodes_[LIST_MAX_INDEX];
-    nodes_[LIST_MAX_INDEX].next = &nodes_[0];
+    nodes_[1].prev = &nodes_[LIST_MAX_INDEX];
+    nodes_[LIST_MAX_INDEX].next = &nodes_[1];
     freeRoot_ = &nodes_[1];
 
     // Create root element
@@ -29,7 +29,7 @@ ArrayLinkedList::~ArrayLinkedList() {
 
 ArrayNode* ArrayLinkedList::find(int valueToFind) {
     register ArrayNode *curNode = root_;
-    while (!(curNode->value == valueToFind || curNode->next == nullptr))
+    while (curNode != nullptr && curNode->value != valueToFind)
         curNode = curNode->next;
     return curNode;
 }

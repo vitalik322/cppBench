@@ -3,7 +3,7 @@
 
 PointerNode *PointerLinkedList::find(int valueToFind) {
     register PointerNode *curNode = root_;
-    while (!(curNode->value == valueToFind || curNode->next == nullptr))
+    while (curNode != nullptr && curNode->value != valueToFind)
         curNode = curNode->next;
     return curNode;
 }   

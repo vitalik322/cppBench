@@ -34,7 +34,7 @@ void testLists() {
     ArrayLinkedList arrayList;
     PointerLinkedList pointerList;
     for (register int i = 0; i < 1000; ++i) {
-        int randNum = rand() % 1000;
+        int randNum = rand() % 1000 + 1;
 
         if (pointerList.find(randNum) == nullptr)
             assert(arrayList.find(randNum) == nullptr);
@@ -43,7 +43,7 @@ void testLists() {
 
         if (arrayList.find(randNum) != nullptr) {  // if num exists - insert new one, or remove
             if (rand() % 2) {  // insert
-                int newValue = rand() % 1000;
+                int newValue = rand() % 1000 + 1;
                 arrayList.insertAfter(arrayList.find(randNum), newValue);
                 pointerList.insertAfter(pointerList.find(randNum), newValue);
             }
