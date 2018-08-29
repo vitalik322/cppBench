@@ -11,5 +11,8 @@ profile: ${SOURCES}
 	./measurer
 	 gprof measurer gmon.out > analysis.txt
 
-o3: ${SOURCES}
+O3: ${SOURCES}
 	g++ -std=c++11 -O3 ${SOURCES} -o measurer
+
+O1: ${SOURCES}
+	g++ -std=c++11 -O1 ${SOURCES} -o measurer

@@ -19,3 +19,13 @@ void benchAllocHeapArray(int arrSize, long long numOps) {
     delete[] arr;
 }
 
+int arr[ARR_SIZE];
+void benchAllocGlobalStackArray(int arrSize, long long numOps) {
+    // assert(ARR_SIZE == arrSize);
+    int tmp = 322;
+    for (register long long i = 0; i < numOps; ++i)
+        arr[i * i % arrSize] = tmp;
+    for (register long long i = 0; i < numOps; ++i)
+        tmp = arr[i * i % arrSize];
+}
+

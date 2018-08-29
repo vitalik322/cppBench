@@ -7,8 +7,8 @@
 
 struct ArrayNode {
     int value = 0;
-    int prev = -1;
-    int next = -1;
+    ArrayNode *prev = nullptr;
+    ArrayNode *next = nullptr;
 };
 
 struct ArrayLinkedList {
@@ -17,12 +17,12 @@ struct ArrayLinkedList {
     ~ArrayLinkedList();
 
     ArrayNode *nodes_;
-    int root_ = 0;
-    int freeRoot_ = 0;
+    ArrayNode *root_ = nullptr;
+    ArrayNode *freeRoot_ = nullptr;
 
-    int find(int valueToFind);
-    void insertAfter(int prevNode, int newValue);
-    void remove(int node);
+    ArrayNode* find(int valueToFind);
+    void insertAfter(ArrayNode* prevNode, int newValue);
+    void remove(ArrayNode* node);
 };
 
 void benchArrayList(int elementsNum);

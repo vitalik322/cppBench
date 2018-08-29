@@ -6,9 +6,11 @@
 
 #include "hash/hash.h"
 #include "stack/stack.h"
+#include "register/register.h"
 #include "arrayList/arrayList.h"
 #include "allocation/allocation.h"
 #include "pointerList/pointerList.h"
+#include "addressArithmetic/addressArithmetic.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -29,19 +31,32 @@ void measureFuncs(vecFuncStrT& vecFuncName) {
 int main() {
     vecFuncStrT funcNamePairs;
 
-    // Stack-heap array
+    // 'register' keyword
+    /*
+    funcNamePairs.push_back(make_pair(bind(benchWithRegister, 2000), "with register"));
+    funcNamePairs.push_back(make_pair(bind(benchWithoutRegister, 2000), "without register"));
+    // */
+
+    // address arithmetic
+    /*
+    funcNamePairs.push_back(make_pair(bind(benchWithAddressArith, 1000000, 20000), "with address arithmetic"));
+    funcNamePairs.push_back(make_pair(bind(benchWithoutAddressArith, 1000000, 20000), "without address arithmetic"));
+    // */
+
+    // Array access
     /*
     long long opsNum = 1000000000;
     funcNamePairs.push_back(make_pair(bind(benchAllocStackArray, 1000000, opsNum), "Array allocated on stack"));
     funcNamePairs.push_back(make_pair(bind(benchAllocHeapArray, 1000000, opsNum), "Array allocated on heap"));
+    funcNamePairs.push_back(make_pair(bind(benchAllocGlobalStackArray, 1000000, opsNum), "Array allocated on global stack"));
     // */
 
     // Lists
-    /*
-    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 70000), "Pointer-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 70000), "Array-based linked list find method"));
-    //funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
-    //funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
+    //*
+    //funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 80000), "Pointer-based linked list find method"));
+    //funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 80000), "Array-based linked list find method"));
+    funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
+    funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
     // */
 
     // Stack
@@ -51,7 +66,7 @@ int main() {
     // */
 
     // Hash table
-    //*
+    /*
     funcNamePairs.push_back(make_pair(bind(benchHashTableList, 250), "List hash table"));
     funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 250), "Linear hash table"));
     // */

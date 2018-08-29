@@ -6,20 +6,18 @@
 ArrayLinkedList::ArrayLinkedList() {
     nodes_ = new ArrayNode[LIST_MAX_INDEX + 1];
 
-    // Loop list
-    for (int i = 0; i <= LIST_MAX_INDEX; i++) {
-        nodes_[i].prev = i - 1;
-        nodes_[i].next = i + 1;
+    // Connect and loop list
+    for (register int i = 0; i <= LIST_MAX_INDEX; i++) {
+        nodes_[i].prev = &nodes_[i - 1];
+        nodes_[i].next = &nodes_[i + 1];
     }
-    nodes_[0].prev = LIST_MAX_INDEX;
-    nodes_[LIST_MAX_INDEX].next = 0;
-    freeRoot_ = 1;
+    nodes_[0].prev = &nodes_[LIST_MAX_INDEX];
+    nodes_[LIST_MAX_INDEX].next = &nodes_[0];
+    freeRoot_ = &nodes_[1];
 
     // Create root element
-    root_ = 0;
-    nodes_[root_].value = 0;
-    nodes_[root_].next = -1;
-    nodes_[root_].prev = -1;
+    root_ = &nodes_[0];
+    root_->value = 0;
 }
 
 
@@ -27,47 +25,48 @@ ArrayLinkedList::~ArrayLinkedList() {
     delete nodes_;
 }
 
-int ArrayLinkedList::find(int valueToFind) {
-    register int curNode = root_;
-    while (nodes_[curNode].value != valueToFind && curNode != -1)
-        curNode = nodes_[curNode].next;
+ArrayNode* ArrayLinkedList::find(int valueToFind) {
+    register ArrayNode *curNode = root_;
+    while (curNode->value != valueToFind && curNode->next != nullptr)
+        curNode = curNode->next;
     return curNode;
 }
 
-void ArrayLinkedList::insertAfter(int prevNode, int newValue) {
-    // Get new node index
-    int newNode = freeRoot_;
+void ArrayLinkedList::insertAfter(ArrayNode *prevNode, int newValue) {
+    register ArrayNode *newNode = freeRoot_;
 
     // Remove node from free nodes list
-    nodes_[nodes_[freeRoot_].prev].next = nodes_[freeRoot_].next;
-    nodes_[nodes_[freeRoot_].next].prev = nodes_[freeRoot_].prev;
-    freeRoot_ = nodes_[freeRoot_].next;
+    freeRoot_->prev->next = freeRoot_->next;
+    freeRoot_->next->prev = freeRoot_->prev;
+    freeRoot_ = freeRoot_->next;
 
     // Insert new node
-    nodes_[newNode].value = newValue;
-    nodes_[newNode].next = nodes_[prevNode].next;
-    nodes_[newNode].prev = prevNode;
-    nodes_[prevNode].next = newNode;
-    nodes_[nodes_[newNode].next].prev = newNode;
+    newNode->value = newValue;
+    newNode->prev = prevNode;
+    newNode->next = prevNode->next;
+
+    if (prevNode->next != nullptr)
+        newNode->next->prev = newNode;
+    prevNode->next = newNode;
 }
 
-void ArrayLinkedList::remove(int nodeToRemove) {
+void ArrayLinkedList::remove(ArrayNode *nodeToRemove) {
 
     // Remove node
-    nodes_[nodes_[nodeToRemove].prev].next = nodes_[nodeToRemove].next;
-    nodes_[nodes_[nodeToRemove].next].prev = nodes_[nodeToRemove].prev;
+    nodeToRemove->prev->next = nodeToRemove->next;
+    nodeToRemove->next->prev = nodeToRemove->prev;
 
     // Add node to empty nodes list (after freeRoot_)
-    nodes_[nodeToRemove].next = nodes_[freeRoot_].next;
-    nodes_[nodeToRemove].prev = freeRoot_;
-    nodes_[freeRoot_].next = nodeToRemove;
-    nodes_[nodes_[nodeToRemove].next].prev = nodeToRemove;
+    nodeToRemove->next = freeRoot_->next;
+    nodeToRemove->prev = freeRoot_;
+    freeRoot_->next = nodeToRemove;
+    nodeToRemove->next->prev = nodeToRemove;
 }
 
 void benchArrayListFind(int elementsNum) {
     ArrayLinkedList list;
+    register ArrayNode *node;
 
-    int node;
     for (register int i = 0; i < elementsNum; ++i) {
         node = list.find(i);
         list.insertAfter(node, i + 1);
@@ -83,16 +82,16 @@ void benchArrayList(int elementsNum) {
     ArrayLinkedList list;
 
     for (register int j = 0; j < elementsNum; ++j) {
-        int node = 0;
+        register ArrayNode *node = list.root_;
         for (register int i = 0; i < elementsNum; ++i) {
             list.insertAfter(node, i + 1);
-            node = list.nodes_[node].next;
+            node = node->next;
         }
 
-        node = 0;
-        int nextNode = list.nodes_[node].next;
+        node = list.root_;
+        register ArrayNode *nextNode = node->next;
         for (register int i = 0; i < elementsNum; ++i) {
-            nextNode = list.nodes_[node].next;
+            nextNode = node->next;
             list.remove(node);
             node = nextNode;
         }
