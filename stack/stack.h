@@ -31,3 +31,5 @@ struct StackList {
 
 void benchStackList(int opNum);
 void benchStackArray(int opNum);
+void benchFacRec(int n, int iters);
+void benchFacStack(int n, int inters);

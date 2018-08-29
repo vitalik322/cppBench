@@ -18,6 +18,8 @@ ArrayLinkedList::ArrayLinkedList() {
     // Create root element
     root_ = &nodes_[0];
     root_->value = 0;
+    root_->next = nullptr;
+    root_->prev = nullptr;
 }
 
 
@@ -27,7 +29,7 @@ ArrayLinkedList::~ArrayLinkedList() {
 
 ArrayNode* ArrayLinkedList::find(int valueToFind) {
     register ArrayNode *curNode = root_;
-    while (curNode->value != valueToFind && curNode->next != nullptr)
+    while (!(curNode->value == valueToFind || curNode->next == nullptr))
         curNode = curNode->next;
     return curNode;
 }
@@ -36,9 +38,9 @@ void ArrayLinkedList::insertAfter(ArrayNode *prevNode, int newValue) {
     register ArrayNode *newNode = freeRoot_;
 
     // Remove node from free nodes list
-    freeRoot_->prev->next = freeRoot_->next;
-    freeRoot_->next->prev = freeRoot_->prev;
     freeRoot_ = freeRoot_->next;
+    freeRoot_->prev = freeRoot_->prev->prev;
+    freeRoot_->prev->next = freeRoot_;
 
     // Insert new node
     newNode->value = newValue;
@@ -53,8 +55,10 @@ void ArrayLinkedList::insertAfter(ArrayNode *prevNode, int newValue) {
 void ArrayLinkedList::remove(ArrayNode *nodeToRemove) {
 
     // Remove node
-    nodeToRemove->prev->next = nodeToRemove->next;
-    nodeToRemove->next->prev = nodeToRemove->prev;
+    if (nodeToRemove->prev != nullptr)
+        nodeToRemove->prev->next = nodeToRemove->next;
+    if (nodeToRemove->next != nullptr)
+        nodeToRemove->next->prev = nodeToRemove->prev;
 
     // Add node to empty nodes list (after freeRoot_)
     nodeToRemove->next = freeRoot_->next;

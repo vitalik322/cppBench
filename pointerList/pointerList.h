@@ -13,7 +13,6 @@ struct PointerNode {
 
 struct PointerLinkedList {
     PointerNode *root_ = new PointerNode();
-    int size_ = 1;
 
     PointerNode *find(int valueToFind);
     void insertAfter(PointerNode *prevNode, int newValue);

@@ -3,7 +3,7 @@
 
 PointerNode *PointerLinkedList::find(int valueToFind) {
     register PointerNode *curNode = root_;
-    while (curNode->value != valueToFind && curNode->next != nullptr)
+    while (!(curNode->value == valueToFind || curNode->next == nullptr))
         curNode = curNode->next;
     return curNode;
 }   
@@ -19,10 +19,12 @@ void PointerLinkedList::insertAfter(PointerNode *prevNode, int newValue) {
     prevNode->next = newNode;
 }
 
-void PointerLinkedList::remove(PointerNode *node) {
-    PointerNode *nodeToDelete = node->next;
-    node->next = nodeToDelete->next;
-    delete nodeToDelete;
+void PointerLinkedList::remove(PointerNode *nodeToRemove) {
+    if (nodeToRemove->prev != nullptr)
+        nodeToRemove->prev->next = nodeToRemove->next;
+    if (nodeToRemove->next != nullptr)
+        nodeToRemove->next->prev = nodeToRemove->prev;
+    delete nodeToRemove;
 }
 
 void benchPointerListFind(int elementsNum) {

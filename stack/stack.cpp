@@ -41,3 +41,30 @@ void benchStackArray(int opNum) {
         for (register int i2 = 0; i2 < opNum; ++i2)
             stack.pop();
 }
+
+int _calcFacRec(int n, int res = 1) {
+    if (n == 1)
+        return res;
+    return _calcFacRec(n - 1, res * n);
+}
+
+void benchFacRec(int n, int iters) {
+    for (int i = 0; i < iters; ++i)
+        _calcFacRec(n);
+}
+
+// TODO
+int _calcFacStack(int n) {
+    StackArray stack;
+    for (register int i = n; i > 0; --i)
+        stack.push(i);
+    for (register int i = 0; i < n; ++i)
+        stack.push(stack.pop() * stack.pop());
+    return stack.pop();
+}
+
+void benchFacStack(int n, int iters) {
+    for (int i = 0; i < iters; ++i)
+        _calcFacStack(n);
+
+}

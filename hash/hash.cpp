@@ -5,7 +5,7 @@
 //
 
 unsigned int polynomHash(std::string &s) {
-    unsigned int hash = 0;
+    register unsigned int hash = 0;
     for (auto c : s) {
         hash = hash * HASH_BASE + c;
     }
@@ -20,7 +20,7 @@ HashTableLinear::HashTableLinear() {
 // Supposing string doesn't exist in list
 void HashTableLinear::insert(std::string &strToInsert) {
     inserts++;
-    int originalHash = polynomHash(strToInsert);
+    register int originalHash = polynomHash(strToInsert);
     register int hash = originalHash;
     for (; !table_[hash].str.empty(); hash = (hash + 1) % HASH_TABLE_SIZE);
     if (hash != originalHash) collisions++;
@@ -41,10 +41,10 @@ bool HashTableLinear::find(std::string &strToFind) {
 // Removing: find last entry with same hash and replace deleted one
 void HashTableLinear::remove(std::string &strToRemove) {
     removes++;
-    int originalHash = polynomHash(strToRemove);
+    register int originalHash = polynomHash(strToRemove);
     register int hash = originalHash;
-    int idxToRemove = 0;
-    int lastEntryIdx = 0;
+    register int idxToRemove = 0;
+    register int lastEntryIdx = 0;
     while (!table_[hash].str.empty() || table_[hash].isDeleted) {
         if (polynomHash(table_[hash].str) == originalHash) {
             lastEntryIdx = hash;
@@ -63,14 +63,14 @@ void HashTableLinear::remove(std::string &strToRemove) {
 //
 
 void List::push(std::string& value) {
-    HashNode *newNode = new HashNode(value);
+    register HashNode *newNode = new HashNode(value);
 
     if (root_ == nullptr) {
         root_ = newNode;
         return;
     }
 
-    HashNode *currNode = root_;
+    register HashNode *currNode = root_;
     for (;currNode->next != nullptr; currNode = currNode->next);
 
     currNode->next = newNode;
@@ -87,7 +87,7 @@ void List::remove(std::string &strToRemove) {
 
     for (;prevNode->next->value != strToRemove; prevNode = prevNode->next);
 
-    HashNode *nodeToRemove = prevNode->next;
+    register HashNode *nodeToRemove = prevNode->next;
     prevNode->next = nodeToRemove->next;
     delete nodeToRemove;
 }
@@ -116,12 +116,12 @@ void HashTableList::insert(std::string &strToInsert) {
 // Supposing string do exists in table
 void HashTableList::remove(std::string &strToRemove) {
     ++removes;
-    int hash = polynomHash(strToRemove);
+    register int hash = polynomHash(strToRemove);
     table_[hash].remove(strToRemove);
 }
 
 bool HashTableList::find(std::string &strToFind) {
-    int hash = polynomHash(strToFind);
+    register int hash = polynomHash(strToFind);
     return table_[hash].find(strToFind);
 }
 

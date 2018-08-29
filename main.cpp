@@ -1,6 +1,7 @@
 #include <vector>
 #include <chrono>
 #include <string>
+#include <cassert>
 #include <iostream>
 #include <functional>
 
@@ -28,6 +29,37 @@ void measureFuncs(vecFuncStrT& vecFuncName) {
     }
 }
 
+void testLists() {
+    std::cout << "testing lists" << std::endl;
+    ArrayLinkedList arrayList;
+    PointerLinkedList pointerList;
+    for (register int i = 0; i < 1000; ++i) {
+        int randNum = rand() % 1000;
+
+        if (pointerList.find(randNum) == nullptr)
+            assert(arrayList.find(randNum) == nullptr);
+        else
+            assert(pointerList.find(randNum)->value == arrayList.find(randNum)->value);
+
+        if (arrayList.find(randNum) != nullptr) {  // if num exists - insert new one, or remove
+            if (rand() % 2) {  // insert
+                int newValue = rand() % 1000;
+                arrayList.insertAfter(arrayList.find(randNum), newValue);
+                pointerList.insertAfter(pointerList.find(randNum), newValue);
+            }
+            else {  // remove
+                arrayList.remove(arrayList.find(randNum));
+                pointerList.remove(pointerList.find(randNum));
+            }
+        }
+        else {  // if num doesn't exist - insert new one
+            arrayList.insertAfter(arrayList.root_, randNum);
+            pointerList.insertAfter(pointerList.root_, randNum);
+        }
+    }
+    std::cout << "ok" << std::endl;
+}
+
 int main() {
     vecFuncStrT funcNamePairs;
 
@@ -53,16 +85,23 @@ int main() {
 
     // Lists
     //*
-    //funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 80000), "Pointer-based linked list find method"));
-    //funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 80000), "Array-based linked list find method"));
-    funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
-    funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
+    testLists();
+    funcNamePairs.push_back(make_pair(bind(benchPointerListFind, 80000), "Pointer-based linked list find method"));
+    funcNamePairs.push_back(make_pair(bind(benchArrayListFind, 80000), "Array-based linked list find method"));
+    //funcNamePairs.push_back(make_pair(bind(benchPointerList, 20000), "Pointer-based linked list 400.000.000 insert/deletes"));
+    //funcNamePairs.push_back(make_pair(bind(benchArrayList, 20000), "Array-based linked list 400.000.000 insert/deletes"));
     // */
 
     // Stack
     /*
     funcNamePairs.push_back(make_pair(bind(benchStackArray, 5000), "Array-based stack"));
     funcNamePairs.push_back(make_pair(bind(benchStackList, 5000), "List-based stack"));
+    // */
+
+    // Recursion + Stack
+    /*
+    funcNamePairs.push_back(make_pair(bind(benchFacRec, 500, 10000), "Recursive facrotial"));
+    funcNamePairs.push_back(make_pair(bind(benchFacStack, 500, 10000), "Stack-based factorial"));
     // */
 
     // Hash table
