@@ -73,8 +73,10 @@ int main() {
 
     // Hash table
     //*
-    funcNamePairs.push_back(make_pair(bind(benchHashTableList, 250), "List hash table"));
-    funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 250), "Linear hash table"));
+    funcNamePairs.push_back(make_pair(bind(benchHashTableList, 200), "List hash table 200^2"));
+    funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 200), "Linear hash table 200^2"));
+    funcNamePairs.push_back(make_pair(bind(benchHashTableList, 272), "List hash table 272^2"));
+    funcNamePairs.push_back(make_pair(bind(benchHashTableLinear, 272), "Linear hash table 272^2"));
     // */
 
     measureFuncs(funcNamePairs);
